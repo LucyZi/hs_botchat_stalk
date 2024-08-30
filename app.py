@@ -1,5 +1,4 @@
 import time
-
 from google.cloud import bigquery
 import streamlit as st
 from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool
@@ -115,7 +114,7 @@ if "messages" not in st.session_state:
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"].replace("$", "\$"))  # noqa: W605
+        st.markdown(message["content"].replace("$", "\\$"))  # Corrected escape sequence
         try:
             with st.expander("Function calls, parameters, and responses"):
                 st.markdown(message["backend_details"])
@@ -257,7 +256,7 @@ if prompt := st.chat_input("Ask me about information in the database..."):
 
         full_response = response.text
         with message_placeholder.container():
-            st.markdown(full_response.replace("$", "\$"))  # noqa: W605
+            st.markdown(full_response.replace("$", "\\$"))  # Corrected escape sequence
             with st.expander("Function calls, parameters, and responses:"):
                 st.markdown(backend_details)
 
